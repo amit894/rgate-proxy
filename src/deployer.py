@@ -2,47 +2,56 @@ import os
 import yaml
 import json
 import jinja2
-from jinja2 import Template
+from docker import Docker
+from config import Config
+
 
 docker_compose_master_dict= dict({"version": '3'})
 
 
-class Deployer:
-    def __init__(self,config):
-        self.config_file_path=config
+class Deployer():
+    def __init__(self,config,docker):
+        self.docker=docker
+        self.config=config
+
+    def read_config(self):
+        file = open(self.config.file)
+        input_list = yaml.load(file, Loader=yaml.FullLoader)
+        self.backend_list=input_list["backends"]
+        file.close()
+
+    def get_compose_config(self):
+        return (self.config.path+"docker-compose.yml")
+
+    def get_docker_config(self):
+        return (self.config.path+"docker_path.yml")
 
     def deploy_rgate(self):
-        file = open(self.config_file_path)
-        input_list = yaml.load(file, Loader=yaml.FullLoader)
-        backend=input_list["backends"]
-        file.close()
-        self.create_service(backend)
-        self.run_service()
+        self.read_config()
+        self.create_service()
+        self.docker.run_service("../config")
 
-    def create_service(self,backends):
+    def create_service(self):
         host_port=80
-        temp_service_list={}
+        backend_list={}
         path_list={}
-        compose_file = open("../config/docker-compose.yml","w")
-        dockers_path = open("../config/docker_path.yml","w")
-        for backend in backends:
+        compose_file = open(self.get_compose_config(),"w")
+        dockers_path = open(self.get_docker_config(),"w")
+        for backend in self.backend_list:
             temp_service={}
             temp_service["image"]="amit894/"+backend["name"]+":1.0.0"
             temp_service["ports"]=(str(host_port)+":80").split()
             temp_service["container_name"]=backend["name"]+"-service"
             temp_service["hostname"]=backend["name"]+"-service"
-            temp_service["labels"]=["app="+backend["name"],"env=prod"]
-            temp_service_list[backend["name"]]=temp_service
+            temp_service["labels"]=["app_name="+backend["name"],"env=production"]
+            backend_list[backend["name"]]=temp_service
             path_list[backend["name"]]="http://localhost:"+str(host_port)+"/"
             host_port+=1
-        docker_compose_master_dict["services"]=temp_service_list
+        docker_compose_master_dict["services"]=backend_list
         yaml.dump(docker_compose_master_dict,compose_file)
         json.dump(path_list,dockers_path)
         compose_file.close()
         dockers_path.close()
 
-    def run_service(self):
-        os.system(" cd ../config && docker-compose up")
-
-D1=Deployer("../config.yaml")
+D1=Deployer(Config(),Docker())
 D1.deploy_rgate()
