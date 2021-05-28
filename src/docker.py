@@ -18,7 +18,7 @@ class Docker:
         backends=search_key_yaml("backends","../config.yaml")
         if self.backend_exists(match_backend,backends):
             backend=self.search_backend(match_backend,backends)
-            self.list_backend_containers(backend[0]["match_labels"])
+            return(self.list_backend_containers(backend[0]["match_labels"]))
         else:
             print("backend Doesn't Exits")
 
@@ -26,10 +26,8 @@ class Docker:
         filter_expression=""
         for label in match_labels:
             filter_expression+="--filter label="+label+" "
-        if (Command.run_command("docker ps",filter_expression)):
-            print("Service Execution has Errors")
-        else:
-            print("Service Execution is succesful")
+        filter_expression+=" --format={{.Names}}"
+        return(Command.run_command_output("docker ps",filter_expression))
 
     def run_service(self,path):
         arg=path+" && docker-compose up"

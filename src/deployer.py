@@ -54,9 +54,9 @@ class Deployer():
         host_port=80
         dockers_path = open(self.get_docker_config(),"w")
         for backend in self.backend_list:
-            path_list[backend["name"]]="http://localhost:"+str(host_port)+"/"
             host_port+=1
-            print(self.docker.select_backend(backend["name"]))
+            if(self.docker.select_backend(backend["name"]).split("-")[0]==backend["name"]):
+                path_list[backend["name"]]="http://localhost:"+str(host_port)+"/"
         json.dump(path_list,dockers_path)
         dockers_path.close()
 

@@ -8,8 +8,6 @@ class Logger():
     log_file="../logs/rgate.log"
     log_level=logging.INFO
 
-
-
     @staticmethod
     def write(status_code,response_time):
         print(status_code,response_time)
