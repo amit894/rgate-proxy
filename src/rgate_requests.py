@@ -24,23 +24,33 @@ class RGate_Requests():
 
     @staticmethod
     def get_method(path):
-        backend_name=(search_key_json(path.split("/")[0],RGate_Requests.dockers_path))
-        if (backend_name!=None):
-            resp = requests.get(backend_name)
-            #print(resp.status_code,resp.elapsed.total_seconds())
-            response = Response(resp.content, resp.status_code)
-            Logger.write(resp.status_code,resp.elapsed.total_seconds())
-            return response
+        backend_name=(search_key_json(path.split("/")[1],RGate_Requests.dockers_path))
+        if (path.split("/")[0]=="api" and backend_name!=None):
+            try:
+                resp = requests.get(backend_name)
+                response = Response(resp.content, resp.status_code)
+                Logger.write(resp.status_code,resp.elapsed.total_seconds())
+                return response
+            except:
+                response = Response("Backend Down",503)
+                Logger.write(503,RGate_Requests.default_response_time)
+                return response
         else:
             return RGate_Requests.default_response()
 
     @staticmethod
     def post_method(path):
         backend_name=(search_key_json(path.split("/")[0],RGate_Requests.dockers_path))
-        if (backend_name!=None):
-            resp = requests.post(backend_name,json=request.get_json())
-            Logger.write(resp.status_code,resp.elapsed.total_seconds())
-            return response
+        if (path.split("/")[0]=="api" and backend_name!=None):
+            try:
+                resp = requests.post(backend_name,json=request.get_json())
+                response = Response(resp.content, resp.status_code)
+                Logger.write(resp.status_code,resp.elapsed.total_seconds())
+                return response
+            except:
+                response = Response("Backend Down",503)
+                Logger.write(503,RGate_Requests.default_response_time)
+                return response
         else:
             return RGate_Requests.default_response()
 
