@@ -11,16 +11,16 @@ Proxy Server for Rgate
 
 Create the aliases for deployment,running and stopping rgate. RGate has a bug with aboslute paths. so please run them by changing the directory to the src folder of the cloned repo.
 
-- ``` alias rgate-deploy="python3 deployer.py" ```
-- ``` alias rgate-run="python3 rgate_proxy.py  " ```
-- ``` alias rgate-delete="python3 destroy.py" ```
+- ``` alias rgate-deploy="pytest --cov=../src/ ../tests -k test_deploy_rgate" ```
+- ``` alias rgate-run="python3 rgate_proxy.py" ```
+- ``` alias rgate-delete="pytest --cov=../src/ ../tests -k test_stop_rgate ```
 
 
 ## Steps for running RGate
 
 ### Deploying RGate :
 
-- `cd src`
+- `cd tests`
 -  `rgate-deploy`
 
 ### Running RGate :
@@ -30,7 +30,7 @@ Create the aliases for deployment,running and stopping rgate. RGate has a bug wi
 
 ### Stopping RGate :
 
-- `cd src`
+- `cd tests`
 -  `rgate-delete`
 
 
