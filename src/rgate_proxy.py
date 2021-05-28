@@ -10,7 +10,9 @@ from stats import Stats
 
 DEFAULT_RESPONSE_TIME=0.05
 
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def index():

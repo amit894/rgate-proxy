@@ -15,16 +15,16 @@ class DockerTest(unittest.TestCase):
         assert type(DockerTest.D1)==type(DockerTest.D2)
 
     def test_backend_exists(self):
-        assert True==DockerTest.D1.backend_exists("buy",[{"name":"buy"}])
+        assert DockerTest.D1.backend_exists("buy",[{"name":"buy"}])==True
 
     def test_backend_not_exists(self):
-        assert False==DockerTest.D1.backend_exists("sell",[{"name":"buy"}])
+        assert DockerTest.D1.backend_exists("sell",[{"name":"buy"}])==False
 
     def test_select_backend(self):
-        assert "backend Doesn't Exits"==DockerTest.D1.select_backend("sell")
+        assert DockerTest.D1.select_backend("sell")=="backend Doesn't Exits"
 
     def test_run_service(self):
-        assert "Service Execution has Errors"==DockerTest.D1.run_service("sell")
+        assert DockerTest.D1.run_service("sell")=="Service Execution has Errors"
 
     def test_stop_service(self):
-        assert "Service Execution has Errors"==DockerTest.D1.stop_service("sell")
+        assert DockerTest.D1.stop_service("sell")=="Service Execution has Errors"

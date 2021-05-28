@@ -24,8 +24,8 @@ class DeployTest(unittest.TestCase):
     def test_get_compose_config(self):
         assert "../config/docker-compose.yml"==DeployTest.D1.get_compose_config()
 
-    def test_stop_rgate(self):
-        assert None==(DeployTest.D1.stop_rgate())
+    # def test_stop_rgate(self):
+    #     assert None==(DeployTest.D1.stop_rgate())
 
     def test_config_map(self):
         DeployTest.D1.read_config()

@@ -16,20 +16,16 @@ class RequestsTest(unittest.TestCase):
 
     def test_default_response(self):
         response=RequestsTest.R1.get_method("/")
-        assert "403 FORBIDDEN"==response.status
+        assert response.status=="403 FORBIDDEN"
 
     def test_get_response(self):
         response=RequestsTest.R1.get_method("api/buy/index.html")
-        assert "200 OK"==response.status
+        assert response.status=="200 OK"
 
     def test_get_response_503(self):
         response=RequestsTest.R1.get_method("api/sellers/index.html")
-        assert "503 SERVICE UNAVAILABLE"==response.status
+        assert response.status=="503 SERVICE UNAVAILABLE"
 
     def test_post_response(self):
         response=RequestsTest.R1.post_method("/api/buy/index.html")
-        assert "403 FORBIDDEN"==response.status
-
-    def test_post_response_503(self):
-        response=RequestsTest.R1.post_method("/api/sellers/index.html")
-        assert "403 FORBIDDEN"==response.status
+        assert response.status=="403 FORBIDDEN"
