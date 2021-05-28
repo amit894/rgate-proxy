@@ -28,9 +28,11 @@ class Deployer():
 
     def deploy_rgate(self):
         self.read_config()
+
+        #To-Do Create Service as a deamon process/exit 
         self.create_service()
+        #self.create_backend_map()
         self.docker.run_service(self.config.path)
-        self.create_backend_map()
 
     def create_service(self):
         host_port=80

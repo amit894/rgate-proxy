@@ -1,1 +1,1 @@
-{}
+{"recieve": "http://localhost:81/", "buy": "http://localhost:82/", "payments": "http://localhost:83/", "orders": "http://localhost:84/"}
