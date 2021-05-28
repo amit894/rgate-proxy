@@ -9,12 +9,12 @@ class Command():
         try:
             result_code=os.system(cmd+" "+args)
             return (result_code)
-        except OSError as error :
-            print(error)
+        except TypeError as error :
+            return error
 
     def run_command_output(cmd,args):
         try:
             result=os.popen(cmd+" "+args).read()
             return (result)
-        except OSError as error :
-            print(error)
+        except TypeError as error :
+            return error

@@ -24,12 +24,12 @@ class Deployer():
         return (self.config.path+"docker-compose.yml")
 
     def get_docker_config(self):
-        return (self.config.path+"docker_path.yml")
+        return (self.config.path+"docker_path.json")
 
     def deploy_rgate(self):
         self.read_config()
 
-        #To-Do Create Service as a deamon process/exit 
+        #To-Do Create Service as a deamon process/exit
         self.create_service()
         #self.create_backend_map()
         self.docker.run_service(self.config.path)
@@ -62,6 +62,8 @@ class Deployer():
         json.dump(path_list,dockers_path)
         dockers_path.close()
 
+    def stop_rgate(self):
+        self.docker.stop_service(self.config.path)
 
-D1=Deployer(Config(),Docker())
-D1.deploy_rgate()
+# D1=Deployer(Config(),Docker())
+# D1.deploy_rgate()

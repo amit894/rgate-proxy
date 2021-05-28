@@ -5,7 +5,7 @@ import numpy as np
 from file import file_read_json
 
 class Stats():
-    def __init__():
+    def __init__(self):
         pass
 
     log_file="../logs/rgate.log"

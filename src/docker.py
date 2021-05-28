@@ -20,7 +20,7 @@ class Docker:
             backend=self.search_backend(match_backend,backends)
             return(self.list_backend_containers(backend[0]["match_labels"]))
         else:
-            print("backend Doesn't Exits")
+            return("backend Doesn't Exits")
 
     def list_backend_containers(self,match_labels):
         filter_expression=""
@@ -32,13 +32,13 @@ class Docker:
     def run_service(self,path):
         arg=path+" && docker-compose up"
         if (Command.run_command("cd",arg)):
-            print("Service Execution has Errors")
+            return("Service Execution has Errors")
         else:
-            print("Service Execution is succesful")
+            return("Service Execution is succesful")
 
     def stop_service(self,path):
         arg=path+" && docker-compose down"
         if (Command.run_command("cd",arg)):
-            print("Service Execution has Errors")
+            return("Service Execution has Errors")
         else:
-            print("Service Execution is succesful")
+            return("Service Execution is succesful")

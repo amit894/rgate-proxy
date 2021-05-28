@@ -2,7 +2,7 @@ import logging
 from file import file_write
 
 class Logger():
-    def __init__():
+    def __init__(self):
         pass
 
     log_file="../logs/rgate.log"

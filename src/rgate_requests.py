@@ -7,13 +7,13 @@ from file import search_key_json
 from file import search_key_yaml
 
 class RGate_Requests():
-    def __init__():
+    def __init__(self):
         pass
 
     config=Config()
     default_response_key="default_response"
     default_response_time=0.05
-    dockers_path=config.path+"docker_path.yml"
+    dockers_path=config.path+"docker_path.json"
 
     @staticmethod
     def default_response():
