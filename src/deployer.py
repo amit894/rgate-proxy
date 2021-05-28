@@ -62,5 +62,4 @@ class Deployer():
 
 
 D1=Deployer(Config(),Docker())
-D1.read_config()
-D1.create_backend_map()
+D1.deploy_rgate()

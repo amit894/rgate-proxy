@@ -4,7 +4,7 @@ import requests
 from file import file_read_json
 from file import search_key_json
 from file import search_key_yaml
-from docker import Docker
+from stats import get_proxy_stats
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def index():
 
 @app.route("/stats")
 def stats():
-    stats=file_read("../config/stats.json")
+    stats=get_proxy_stats()
     return jsonify(stats)
 
 @app.route("/<path:path>",methods=["GET","POST"])
