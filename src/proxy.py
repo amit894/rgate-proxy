@@ -1,16 +1,19 @@
 from flask import Flask,request,redirect,Response,jsonify
 import requests
+from logger import Logger
 
 from file import file_read_json
 from file import search_key_json
 from file import search_key_yaml
 from stats import get_proxy_stats
 
+
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     response = Response(search_key_yaml("default_response","../config.yaml")["body"], search_key_yaml("default_response","../config.yaml")["status_code"])
+    Logger.write()
     return response
 
 @app.route("/stats")
@@ -26,23 +29,28 @@ def proxy(path):
         if (backend_name!=None):
             resp = requests.get(backend_name)
             response = Response(resp.content, resp.status_code)
+            Logger.write()
             return response
         else:
             response = Response(search_key_yaml("default_response","../config.yaml")["body"], search_key_yaml("default_response","../config.yaml")["status_code"])
+            Logger.write()
             return response
 
     elif request.method=="POST":
         backend_name=(search_key_json(path.split("/")[0],"../config/docker_path.yml"))
-        print(backend_name)
         if (backend_name!=None):
             resp = requests.post(backend_name,json=request.get_json())
             response = Response(resp.content, resp.status_code)
+            Logger.write()
             return response
         else:
             response = Response(search_key_yaml("default_response","../config.yaml")["body"], search_key_yaml("default_response","../config.yaml")["status_code"])
+            Logger.write()
             return response
     else:
         response = Response("Method not supported","405")
+        Logger.write()
+
 
 if __name__ == "__main__":
     app.run(debug = False,port=8080)
