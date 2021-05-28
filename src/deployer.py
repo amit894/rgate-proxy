@@ -29,6 +29,9 @@ class Deployer:
             temp_service={}
             temp_service["image"]="amit894/"+backend["name"]+":1.0.0"
             temp_service["ports"]=(str(host_port)+":80").split()
+            temp_service["container_name"]=backend["name"]+"-service"
+            temp_service["hostname"]=backend["name"]+"-service"
+            temp_service["labels"]=["app="+backend["name"],"env=prod"]
             temp_service_list[backend["name"]]=temp_service
             path_list[backend["name"]]="http://localhost:"+str(host_port)+"/"
             host_port+=1

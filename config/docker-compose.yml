@@ -1,18 +1,38 @@
 services:
   buy:
+    container_name: buy-service
+    hostname: buy-service
     image: amit894/buy:1.0.0
+    labels:
+    - app=buy
+    - env=prod
     ports:
     - 81:80
   orders:
+    container_name: orders-service
+    hostname: orders-service
     image: amit894/orders:1.0.0
+    labels:
+    - app=orders
+    - env=prod
     ports:
     - 83:80
   payments:
+    container_name: payments-service
+    hostname: payments-service
     image: amit894/payments:1.0.0
+    labels:
+    - app=payments
+    - env=prod
     ports:
     - 82:80
   recieve:
+    container_name: recieve-service
+    hostname: recieve-service
     image: amit894/recieve:1.0.0
+    labels:
+    - app=recieve
+    - env=prod
     ports:
     - 80:80
 version: '3'
