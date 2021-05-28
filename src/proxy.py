@@ -6,6 +6,7 @@ from file import search_key_json
 from file import search_key_yaml
 from docker import Docker
 
+app = Flask(__name__)
 
 @app.route("/")
 def index():
@@ -14,7 +15,7 @@ def index():
 
 @app.route("/stats")
 def stats():
-    stats=file_read_json("../config/stats.json")
+    stats=file_read("../config/stats.json")
     return jsonify(stats)
 
 @app.route("/<path:path>",methods=["GET","POST"])
@@ -22,7 +23,6 @@ def proxy(path):
     global backend_name
     if request.method=="GET":
         backend_name=(search_key_json(path.split("/")[0],"../config/docker_path.yml"))
-        print(Docker.select_backend(path.split("/")[0]))
         if (backend_name!=None):
             resp = requests.get(backend_name)
             response = Response(resp.content, resp.status_code)
