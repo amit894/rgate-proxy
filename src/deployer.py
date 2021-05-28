@@ -28,10 +28,10 @@ class Deployer():
 
     def deploy_rgate(self):
         self.read_config()
-
-        #To-Do Create Service as a deamon process/exit
         self.create_service()
-        #self.create_backend_map()
+
+        #LookintoThis
+        self.create_backend_map()
         self.docker.run_service(self.config.path)
 
     def create_service(self):
@@ -54,12 +54,12 @@ class Deployer():
     def create_backend_map(self):
         path_list={}
         host_port=80
-        dockers_path = open(self.get_docker_config(),"w")
+        dockers_path = open(self.get_docker_config(),"a")
         for backend in self.backend_list:
             host_port+=1
             if(self.docker.select_backend(backend["name"]).split("-")[0]==backend["name"]):
                 path_list[backend["name"]]="http://localhost:"+str(host_port)+"/"
-        json.dump(path_list,dockers_path)
+        #json.dump(path_list,dockers_path)
         dockers_path.close()
 
     def stop_rgate(self):

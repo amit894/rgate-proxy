@@ -17,7 +17,6 @@ class CommandTest(unittest.TestCase):
         try:
             CommandTest.C1.run_command()
         except TypeError as err:
-            print("Error")
             assert err,"run_command() missing 2 required positional arguments: 'cmd' and 'args'"
 
     def test_cmd_one_arg(self):
@@ -28,7 +27,7 @@ class CommandTest(unittest.TestCase):
 
 
     def test_cmd_two_arg(self):
-            assert "..0",CommandTest.C1.run_command("test","amit")
+            assert "..0",CommandTest.C1.run_command("tail","-f amit")
 
     def test_cmd_output_no_arg(self):
         try:
@@ -45,4 +44,4 @@ class CommandTest(unittest.TestCase):
 
 
     def test_cmd_output_two_arg(self):
-            assert "..0",CommandTest.C1.run_command_output("test","amit")
+            assert "0",CommandTest.C1.run_command_output("test","amit")

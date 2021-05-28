@@ -30,7 +30,7 @@ class Docker:
         return(Command.run_command_output("docker ps",filter_expression))
 
     def run_service(self,path):
-        arg=path+" && docker-compose up"
+        arg=path+" && docker-compose up -d" 
         if (Command.run_command("cd",arg)):
             return("Service Execution has Errors")
         else:
