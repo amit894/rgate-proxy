@@ -35,3 +35,10 @@ class Docker:
             print("Service Execution has Errors")
         else:
             print("Service Execution is succesful")
+
+    def stop_service(self,path):
+        arg=path+" && docker-compose down"
+        if (Command.run_command("cd",arg)):
+            print("Service Execution has Errors")
+        else:
+            print("Service Execution is succesful")
