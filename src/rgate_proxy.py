@@ -33,6 +33,7 @@ def proxy(path):
     else:
         response = Response("Method not supported","405")
         Logger.write()
+        return response
 
 if __name__ == "__main__":
     app.run(debug = False,port=8080)
