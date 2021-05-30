@@ -65,5 +65,5 @@ class Deployer():
     def stop_rgate(self):
         self.docker.stop_service(self.config.path)
 
-# D1=Deployer(Config(),Docker())
-# D1.deploy_rgate()
+D1=Deployer(Config(),Docker())
+D1.deploy_rgate()
